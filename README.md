@@ -1,7 +1,5 @@
 # 说明
 
----
-
 ## 一、 新环境部署
 
 ### 1. 准备配置文件
@@ -11,7 +9,7 @@
 #### 安装
 - linux
 ```shell
-cd ProjectRootPath
+cd PROJECT_PATH
 python3 -m venv venv
 
 source venv/bin/activate
@@ -24,7 +22,7 @@ pip install -r requirements.txt
 - windows
 
 ```shell
-cd ProjectRootPath
+cd PROJECT_PATH
 python3 -m venv venv
 
 .\venv\bin\activate.bat
@@ -39,7 +37,7 @@ source venv/bin/activate
 ### 3. 准备数据库
 #### 创建数据库并迁移
 ```sql
-CREATE DATABASE [DATABASE_NAME] DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE DATABASE_NAME DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 ```
 ```shell
 python manage.py migrate
@@ -69,8 +67,6 @@ django-admin makemessages
 django-admin compilemessages -l zh_Hans
 ```
 
----
-
 ## 二、数据库备份与还原
 
 ### 1. 手动备份
@@ -83,7 +79,7 @@ python manange.py backup_dbs
 ```shell
 crontab -e
 # 加入定时任务（使用项目绝对路径）
-1 2 * * * [PROJECT_PATH]/venv/bin/python [PROJECT_PATH]/manage.py backup_dbs
+1 2 * * * PROJECT_PATH/venv/bin/python PROJECT_PATH/manage.py backup_dbs
 ```
 > 注意替换路径
 
