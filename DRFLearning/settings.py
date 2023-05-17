@@ -65,7 +65,7 @@ ROOT_URLCONF = 'DRFLearning.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -200,8 +200,6 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
-    'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60 * 3,
-    'DEFAULT_USE_CACHE': 'default',
     'EXCEPTION_HANDLER': 'common.exceptions.handlers.exception_handler',
     'DEFAULT_PAGINATION_CLASS': 'common.core.paginator.PageNumberPagination',
     'PAGE_SIZE': 10,
@@ -287,6 +285,14 @@ LOGGING = {
             'maxBytes': 1024 * 1024 * 50,
             'backupCount': 10
         },
+        'command': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': LOG_DIR / 'command.log',
+            'formatter': 'standard',
+            'maxBytes': 1024 * 1024 * 50,
+            'backupCount': 10
+        },
     },
     'loggers': {
         'django': {
@@ -305,6 +311,11 @@ LOGGING = {
         },
         'task': {
             'handlers': ['task'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
+        'command': {
+            'handlers': ['command'],
             'level': 'DEBUG',
             'propagate': False
         },

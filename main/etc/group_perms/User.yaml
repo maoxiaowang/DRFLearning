@@ -1,2 +1,3 @@
 # 普通用户权限
 main:
+  - add_user

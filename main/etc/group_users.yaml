@@ -1,6 +1,6 @@
 # 组用户的关系
-admin:
+Administrator:
   - admin
 
-user:
+User:
   - user1

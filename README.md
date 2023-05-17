@@ -71,7 +71,7 @@ django-admin compilemessages -l zh_Hans
 
 ### 1. 手动备份
 ```shell
-python manange.py backup_dbs
+python manage.py backup_dbs
 ```
 > --path参数指定备份路径。默认会备份到/home/db_backups/[数据库名]
 

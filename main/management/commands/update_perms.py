@@ -4,7 +4,7 @@ from django.contrib.auth import get_permission_codename
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand, CommandError
 
-from main.constants.auth import GROUP_PERMS_DIR, USER_PERMS_DIR
+from main.management.commands.init_users import USER_PERMS_DIR, GROUP_PERMS_DIR
 from main.models import Group, Permission, User
 
 APP_LIST = [
