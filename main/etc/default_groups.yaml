@@ -1,0 +1,6 @@
+- id: 1
+  name: Administrator
+  description: Default admin group
+- id: 2
+  name: User
+  description: Default user group

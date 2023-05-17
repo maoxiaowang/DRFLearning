@@ -1,0 +1,16 @@
+Django==4.2.1
+djangorestframework
+djangorestframework-simplejwt
+django-filter
+
+wheel
+mysqlclient
+django-redis
+celery
+django-celery-beat
+django-cors-headers
+#daphne
+django-s3-storage
+Pillow
+requests
+PyYAML

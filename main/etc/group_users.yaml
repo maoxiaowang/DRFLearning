@@ -1,0 +1,6 @@
+# 组用户的关系
+admin:
+  - admin
+
+user:
+  - user1

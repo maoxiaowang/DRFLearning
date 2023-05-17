@@ -1,0 +1,8 @@
+- id: 1
+  username: admin
+  password: 123456
+  email: admin@drf-learning.com
+- id: 2
+  username: user1
+  password: 123456
+  email: user1@drf-learning.com
