@@ -1,0 +1,14 @@
+[Unit]
+Description=Minio S3 Daemon
+After=network.target
+
+[Service]
+TimeoutStartSec=30
+Restart=on-failure
+RestartSec=5s
+ExecStart=podman run -p 9000:9000 -p 9001:9001 quay.io/minio/minio server /data --console-address ":9001"
+ExecStop=/bin/kill $MAINPID
+ExecReload=/bin/kill $MAINPID && podman run -p 9000:9000 -p 9001:9001 quay.io/minio/minio server /data --console-address ":9001"
+
+[Install]
+WantedBy=multi-user.target
