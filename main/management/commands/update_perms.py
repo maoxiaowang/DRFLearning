@@ -1,17 +1,12 @@
 import yaml
 from django.apps import apps
+from django.conf import settings
 from django.contrib.auth import get_permission_codename
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand, CommandError
 
-from main.management.commands.init_users import USER_PERMS_DIR, GROUP_PERMS_DIR
+from main.constants.auth import GROUP_PERMS_DIR, USER_PERMS_DIR
 from main.models import Group, Permission, User
-
-APP_LIST = [
-    'base',
-    'identity',
-    'service'
-]
 
 
 def _get_builtin_permissions(opts):
@@ -31,6 +26,13 @@ def _get_builtin_permissions(opts):
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
+        installed_apps = set(app_item.split('.')[0] for app_item in settings.INSTALLED_APPS)
+        custom_app_names = list()
+        for item in settings.BASE_DIR.iterdir():
+            if item.is_dir() and 'apps.py' in [sub_item.name for sub_item in item.iterdir()]:
+                custom_app_names.append(item.name)
+        active_custom_app_names = installed_apps.intersection(set(custom_app_names))
+
         # 更新permission name（描述）
         perms_from_db = [
             {
@@ -39,19 +41,13 @@ class Command(BaseCommand):
                 'model': perm_obj.content_type.model
             }
             for perm_obj in Permission.objects.all()
-            if perm_obj.content_type.app_label in APP_LIST
+            if perm_obj.content_type.app_label in active_custom_app_names
         ]
         changed_count = 0
         # get all model perms
         all_model_perms = list()
-        for app_label in APP_LIST:
+        for app_label in active_custom_app_names:
             for model_name in apps.all_models[app_label]:
-                # special case
-                # if app_label == 'auth' and model_name == 'permission':
-                #     model = apps.get_model('identity.Permission')
-                # elif app_label == 'auth' and model_name == 'group':
-                #     model = apps.get_model('identity.Group')
-                # else:
                 model = apps.get_model(app_label, model_name)
 
                 # New perms
@@ -60,16 +56,13 @@ class Command(BaseCommand):
                 builtin_permissions = _get_builtin_permissions(_meta)
                 permissions.extend(builtin_permissions)
                 for codename, name in set(permissions):
-                    if app_label in APP_LIST:
+                    if app_label in active_custom_app_names:
                         all_model_perms.append(
                             {'app_label': app_label, 'codename': codename,
                              'model': _meta.model_name}
                         )
                     # Old perms
                     for perm in perms_from_db:
-                        # if perm['codename'] == 'list_permission':
-                        #     print(perm['app_label'])
-
                         if all((perm['codename'] == codename, perm['app_label'] == app_label)):
                             if perm['name'] != name:
                                 try:
