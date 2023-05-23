@@ -1,3 +1,6 @@
 # 普通用户权限
 main:
-  - add_user
+  - view_user
+  - add_server_group
+  - change_server_group
+  - delete_server_group

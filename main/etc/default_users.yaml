@@ -6,3 +6,7 @@
   username: user1
   password: 123456
   email: user1@drf-learning.com
+- id: 3
+  username: user2
+  password: 123456
+  email: user2@drf-learning.com
