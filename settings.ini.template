@@ -1,0 +1,28 @@
+[DEFAULT]
+debug = true
+log_dir = /var/log/DRFLearning
+project_name = DRFLearning
+
+[MySQL]
+host = 127.0.0.1
+port = 3306
+user = root
+password = 123456
+name = drf_learning
+
+[Redis]
+host = 127.0.0.1
+port = 6379
+password = 123456
+default_db = 1
+secondary_db = 2
+
+[Security]
+password_level = medium
+password_min_length = 6
+
+[Storage]
+endpoint_url = http://192.168.0.104:9000/drf-learning
+access_key = OfPcjcy4HdSq4HjD
+secret_key = 8RwVh2yeWwO8sqCnyPOae5FfTaK70BV2
+bucket_name = drf-learning
