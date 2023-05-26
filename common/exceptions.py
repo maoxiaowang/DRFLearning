@@ -32,6 +32,9 @@ def construct_messages(msg: typing.Union[str, dict, list]) -> list:
                 else:
                     item = f'[{field}] {value}' if settings.DEBUG else value
                     msg_list.append(item)
+            else:
+                item = f'[{field}] {values}' if settings.DEBUG else values
+                msg_list.append(item)
     elif isinstance(msg, list):
         for item in msg:
             try:
@@ -39,7 +42,7 @@ def construct_messages(msg: typing.Union[str, dict, list]) -> list:
             except TypeError:
                 raise
     else:
-        msg_list.append(msg)
+        msg_list.append(str(msg))
 
     return msg_list
 
